@@ -30,5 +30,7 @@
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
         android:layout_marginBottom="150dp"
-        app:lottie_rawRes="@raw/edu1" />
+        app:lottie_rawRes="@raw/edu1"
+
+        tools:ignore="MissingClass" />
 </androidx.constraintlayout.widget.ConstraintLayout>

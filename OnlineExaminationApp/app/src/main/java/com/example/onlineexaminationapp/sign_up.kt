@@ -1,13 +1,14 @@
 package com.example.onlineexaminationapp
-
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Patterns
-import android.view.View
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.textfield.TextInputEditText
+import com.example.onlineexaminationapp.LoginActivity
+import com.example.onlineexaminationapp.R
 import com.google.android.material.textfield.TextInputLayout
 
 class SignUpActivity : AppCompatActivity() {
@@ -19,6 +20,8 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var studentButton: Button
     private lateinit var facultyButton: Button
     private lateinit var signUpButton: Button
+    private lateinit var alreadySignedUpText: TextView
+    private lateinit var loginText: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,34 +35,43 @@ class SignUpActivity : AppCompatActivity() {
         studentButton = findViewById(R.id.button)
         facultyButton = findViewById(R.id.button2)
         signUpButton = findViewById(R.id.button3)
+        alreadySignedUpText = findViewById(R.id.alreadySignedUpText)
+        loginText = findViewById(R.id.loginText)
 
         // Set onClickListeners
         studentButton.setOnClickListener {
-            // Load Student Sign-Up Form
-            Toast.makeText(this, "Fill the Student Sign-Up Form", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Sign-Up as Student", Toast.LENGTH_SHORT).show()
             showStudentForm()
         }
 
         facultyButton.setOnClickListener {
-            // Load Faculty Sign-Up Form
-            Toast.makeText(this, "Fill the Faculty Sign-Up Form", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Sign-Up as Faculty", Toast.LENGTH_SHORT).show()
             showFacultyForm()
         }
 
         signUpButton.setOnClickListener {
-            // Validate input fields
             if (validateInputs()) {
-                Toast.makeText(this, "Congrats! You signed up!", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Congrats! You signed up successfully!", Toast.LENGTH_LONG).show()
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+                finish()
             }
+        }
+
+        loginText.setOnClickListener {
+            Toast.makeText(this, "Navigating to Login", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 
     private fun showStudentForm() {
-        // Custom logic if needed to modify form for students
+        Toast.makeText(this, "Student SignUp is now Enabled", Toast.LENGTH_SHORT).show()
     }
 
     private fun showFacultyForm() {
-        // Custom logic if needed to modify form for faculty
+        Toast.makeText(this, "Faculty SignUp is now Enabled", Toast.LENGTH_SHORT).show()
     }
 
     private fun validateInputs(): Boolean {
@@ -68,38 +80,42 @@ class SignUpActivity : AppCompatActivity() {
         val email = emailInput.editText?.text.toString().trim()
         val password = passwordInput.editText?.text.toString().trim()
 
-        // Validate Full Name
         if (TextUtils.isEmpty(fullName)) {
             fullNameInput.error = "Full Name is required"
+            showMessage("Please enter your Full Name")
             return false
         } else {
             fullNameInput.error = null
         }
 
-        // Validate Username
         if (TextUtils.isEmpty(username)) {
             usernameInput.error = "Username is required"
+            showMessage("Please enter your Username")
             return false
         } else {
             usernameInput.error = null
         }
 
-        // Validate Email
         if (TextUtils.isEmpty(email) || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             emailInput.error = "Invalid Email Address"
+            showMessage("Please enter a valid Email Address")
             return false
         } else {
             emailInput.error = null
         }
 
-        // Validate Password
         if (TextUtils.isEmpty(password)) {
             passwordInput.error = "Password is required"
+            showMessage("Please enter your Password")
             return false
         } else {
             passwordInput.error = null
         }
 
         return true
+    }
+
+    private fun showMessage(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }

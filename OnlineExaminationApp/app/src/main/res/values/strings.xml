@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">Online Examination App</string>
+    <string name="app_name">Edu Examine</string>
+    <string name="welcome_students">Welcome Students</string>
+    <string name="view_results">View Results</string>
+    <string name="courses">Courses</string>
+    <string name="answer_question_paper">Answer Question Paper</string>
+    <string name="welcome_user">Welcome User !</string>
 </resources>
